@@ -45,7 +45,9 @@ function AuthForm({ role, method }: AuthFormProps) {
         try {
             await register({ payload, role: currentRole }).unwrap()
             handleSignIn(payload)
-            navigate(`/auth/${role}/${method}`)
+            if (!isSubmitting) {
+                navigate(`/auth/${role}/${method}`)
+            }
         } catch (error: any) {
             setErrorMessage(error?.data?.error?.message || 'Failed to sign up. Please try again.')
         }

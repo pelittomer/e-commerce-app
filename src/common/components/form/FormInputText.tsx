@@ -21,9 +21,9 @@ export function FormInputText<T extends FieldValues>({
                 <TextField
                     {...field}
                     {...props}
-                    error={!!error} 
-                    helperText={error?.message || ''} 
-                    variant="outlined" 
+                    error={!!error}
+                    helperText={error?.message || ''}
+                    variant="outlined"
                     fullWidth
                     margin="normal"
                 />

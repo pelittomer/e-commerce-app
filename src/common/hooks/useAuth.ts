@@ -5,14 +5,14 @@ import { jwtDecode } from "jwt-decode"
 export interface UserInfo {
     userId: string;
     username: string;
-    roles: RoleType;
+    roles: UserRole;
 }
 export const Role = {
     Customer: "CUSTOMER",
     Seller: "SELLER",
     Admin: "ADMIN"
 } as const
-type RoleType = (typeof Role)[keyof typeof Role]
+export type UserRole = (typeof Role)[keyof typeof Role]
 
 const useAuth = () => {
     const token = useSelector(selectCurrentToken)

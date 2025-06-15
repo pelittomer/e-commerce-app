@@ -12,7 +12,13 @@ import Question from "./modules/question/page"
 import Review from "./modules/review/page"
 import Layout from "./common/components/Layout"
 import PersistLogin from "./modules/auth/components/PersistLogin"
-
+import RequireAuth from "./common/components/RequireAuth"
+import AdminLayout from "./modules/admin/components/AdminLayout"
+import { Role } from "./common/hooks/useAuth"
+import Brand from "./modules/admin/brand/Brand"
+import Category from "./modules/admin/category/Category"
+import Shipper from "./modules/admin/shipper/Shipper"
+import Variation from "./modules/admin/variation/Variation"
 function App() {
   return (
     <Routes>
@@ -29,6 +35,15 @@ function App() {
           <Route path="/profile" element={<Profile />} />
           <Route path="/question" element={<Question />} />
           <Route path="/review" element={<Review />} />
+          <Route element={<RequireAuth allowedRoles={Role.Admin} />}>
+            <Route element={<AdminLayout />}>
+              <Route path="/admin/brand" element={<Brand />} />
+              <Route path="/admin/category" element={<Category />} />
+              <Route path="/admin/company" element={<Company />} />
+              <Route path="/admin/shipper" element={<Shipper />} />
+              <Route path="/admin/variation" element={<Variation />} />
+            </Route>
+          </Route>
         </Route>
       </Route>
     </Routes>
