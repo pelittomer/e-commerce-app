@@ -10,21 +10,27 @@ import ProductDetail from "./modules/product-details/page"
 import Profile from "./modules/profile/page"
 import Question from "./modules/question/page"
 import Review from "./modules/review/page"
+import Layout from "./common/components/Layout"
+import PersistLogin from "./modules/auth/components/PersistLogin"
 
 function App() {
   return (
     <Routes>
       <Route index element={<Home />} />
-      <Route path="/auth" element={<Auth />} />
-      <Route path="/cart" element={<Cart />} />
-      <Route path="/company" element={<Company />} />
-      <Route path="/favorite" element={<Favorite />} />
-      <Route path="/order" element={<Order />} />
-      <Route path="/product" element={<Product />} />
-      <Route path="/product-detail" element={<ProductDetail />} />
-      <Route path="/profile" element={<Profile />} />
-      <Route path="/question" element={<Question />} />
-      <Route path="/review" element={<Review />} />
+      <Route path="/auth/:role/:method" element={<Auth />} />
+      <Route element={<PersistLogin />} >
+        <Route path="/" element={<Layout />} >
+          <Route path="/cart" element={<Cart />} />
+          <Route path="/company" element={<Company />} />
+          <Route path="/favorite" element={<Favorite />} />
+          <Route path="/order" element={<Order />} />
+          <Route path="/product" element={<Product />} />
+          <Route path="/product-detail" element={<ProductDetail />} />
+          <Route path="/profile" element={<Profile />} />
+          <Route path="/question" element={<Question />} />
+          <Route path="/review" element={<Review />} />
+        </Route>
+      </Route>
     </Routes>
   )
 }
