@@ -3,6 +3,8 @@ import Home from "./modules/home/page"
 import Auth from "./modules/auth/page"
 import Cart from "./modules/cart/page"
 import Company from "./modules/company/page"
+import CompanyDetails from "./modules/admin/company-details/page"
+import CompanyAdmin from "./modules/admin/company/Company"
 import Favorite from "./modules/favorite/page"
 import Order from "./modules/order/page"
 import Product from "./modules/product/page"
@@ -40,7 +42,8 @@ function App() {
             <Route element={<AdminLayout />}>
               <Route path="/admin/brand" element={<Brand />} />
               <Route path="/admin/category" element={<Category />} />
-              <Route path="/admin/company" element={<Company />} />
+              <Route path="/admin/company" element={<CompanyAdmin />} />
+              <Route path="/admin/company/:companyId" element={<CompanyDetails />} />
               <Route path="/admin/shipper" element={<Shipper />} />
               <Route path="/admin/variation" element={<Variation />} />
             </Route>

@@ -16,10 +16,48 @@ export const companyApiSlice = apiSlice.injectEndpoints({
                 return data
             },
         }),
+        getCompanies: builder.query({
+            query: () => ({
+                url: '/company/get/all',
+                method: 'GET'
+            }),
+            transformResponse: responseData => {
+                const { data } = responseData
+                const loadedCompanies = data.map(company => {
+                    company.id = company._id
+                    return company
+                })
+                return companyAdapter.setAll(initialState, loadedCompanies)
+            },
+            providesTags: (result, error, arg) => {
+                if (result?.ids) {
+                    return [
+                        { type: 'Company' as const, id: 'LIST' },
+                        ...result.ids.map(id => ({ type: 'Company' as const, id }))
+                    ]
+                } else {
+                    return [{ type: 'Company' as const, id: 'LIST' }]
+                }
+            }
+        }),
         addNewCompany: builder.mutation<any, any>({
             query: initialData => ({
                 url: '/company',
                 method: 'POST',
+                body: initialData,
+            }),
+            invalidatesTags: [
+                { type: "Company", id: "LIST" }
+            ],
+            transformResponse: responseData => {
+                const { data } = responseData
+                return data
+            },
+        }),
+        updateCompanyStatus: builder.mutation<any, any>({
+            query: ({ initialData, query }) => ({
+                url: `/company/${query}`,
+                method: 'PUT',
                 body: initialData,
             }),
             invalidatesTags: [
@@ -35,7 +73,9 @@ export const companyApiSlice = apiSlice.injectEndpoints({
 
 export const {
     useGetCompanyQuery,
-    useAddNewCompanyMutation
+    useGetCompaniesQuery,
+    useAddNewCompanyMutation,
+    useUpdateCompanyStatusMutation
 } = companyApiSlice
 
 export const selectCompanyResult = companyApiSlice.endpoints.getCompany.select()
