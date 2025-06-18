@@ -15,10 +15,11 @@ import PersistLogin from "./modules/auth/components/PersistLogin"
 import RequireAuth from "./common/components/RequireAuth"
 import AdminLayout from "./modules/admin/components/AdminLayout"
 import { Role } from "./common/hooks/useAuth"
-import Brand from "./modules/admin/brand/Brand"
 import Category from "./modules/admin/category/Category"
 import Shipper from "./modules/admin/shipper/Shipper"
 import Variation from "./modules/admin/variation/Variation"
+import Brand from "./modules/admin/brand/Brand"
+import CompanySeller from "./modules/seller/company/CompanySeller"
 function App() {
   return (
     <Routes>
@@ -43,6 +44,9 @@ function App() {
               <Route path="/admin/shipper" element={<Shipper />} />
               <Route path="/admin/variation" element={<Variation />} />
             </Route>
+          </Route>
+          <Route element={<RequireAuth allowedRoles={Role.Seller} />}>
+            <Route path="/seller/company" element={<CompanySeller />} />
           </Route>
         </Route>
       </Route>
